@@ -1,0 +1,15 @@
+schema_version = "1.0.0"
+
+id = "gs_slicer"
+version = "0.2.4"
+name = "Splat Slicer"
+tagline = "Slice Gaussian splats into printable film layers"
+maintainer = "Tim Fennell"
+type = "add-on"
+
+blender_version_min = "5.3.0"
+
+license = ["SPDX:GPL-3.0-or-later"]
+
+[permissions]
+files = "Write slice images, PDF sheets and volume files"
