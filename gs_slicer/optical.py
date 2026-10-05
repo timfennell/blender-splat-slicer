@@ -293,11 +293,11 @@ def set_visible(context, on):
 #   floor/wall: backdrop grey level, or None for none; base/back: emissive strength of the light pad
 #   under the block / the panel behind it; key: front lamp strength; edge: side-strip strength.
 LIGHTING = {
-    'LIGHT_BASE': dict(floor=0.35, wall=0.35, base=4.0, world=0.25),
-    'BACKLIGHT': dict(floor=0.45, wall=None, back=4.0, world=0.25),
-    'FRONT_WHITE': dict(floor=0.85, wall=0.85, key=8.0, world=0.25),
-    'FRONT_BLACK': dict(floor=0.01, wall=0.01, key=8.0, world=0.0),
-    'EDGE': dict(floor=0.01, wall=0.01, edge=16.0, world=0.0),
+    'LIGHT_BASE': dict(floor=0.55, wall=0.55, base=4.0, world=0.5),
+    'BACKLIGHT': dict(floor=0.6, wall=None, back=4.0, world=0.5),
+    'FRONT_WHITE': dict(floor=0.85, wall=0.85, key=8.0, world=0.6),
+    'FRONT_BLACK': dict(floor=0.03, wall=0.03, key=8.0, world=0.03),
+    'EDGE': dict(floor=0.03, wall=0.03, edge=16.0, world=0.03),
 }
 WORLD_NAME = "Splat Optics World"
 _PREV_WORLD = "gs_slicer_prev_world"

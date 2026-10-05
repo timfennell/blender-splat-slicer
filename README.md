@@ -102,7 +102,11 @@ The splat and the slice overlay are hidden while it shows. **Lighting** picks th
 | **Edge-Lit, Black** | light strips against the side faces, black backdrop | only scattering ink lights up |
 | **Scene Lighting** | none | your own lights and world |
 
-![The 4.13-million-splat bee block under each lighting setup, at the default Brightness of 2](docs/images/lighting.png)
+![The 4.13-million-splat bee block face-on under each lighting setup, at the default Brightness of 3](docs/images/lighting.png)
+
+*Face-on, looking down through the top of the block. Light Base is the setup made for this view. Backlight is
+meant for side views, so from above it only lights the block indirectly. Without white ink, front and edge
+light on a black backdrop stay dim.*
 
 Every light is a glowing panel, so its brightness doesn't depend on how far the block box is scaled.
 Panels that stand in for lamps are hidden from the camera. Optics mode uses its own world (background),
@@ -258,11 +262,16 @@ files as the white layer. Don't use a solid white underbase: that would make the
 printers usually print colour first and white on top, so each sheet is flipped. Mirroring the tile means
 that, seen through the film, the picture, label and key dot all read correctly, with colour in front of its white.
 
-![A RIP tile over a checkerboard (transparent background, mirrored) and its white mask](docs/images/rip_tile.jpg)
+![A 720 dpi RIP tile of the bee over a checkerboard (transparent background, mirrored) and its white mask](docs/images/rip_tile.jpg)
+
+*Slice 12 of a 32-sheet export of the 4.13-million-splat bee (1 mm film, 720 dpi, Ink Density 0.3).*
 
 ## Print outputs
 
-![Six slices of the bee block, as exported](docs/images/slices.jpg)
+![Six 720 dpi slices of the bee block, as they print](docs/images/slices.jpg)
+
+*Slices 4, 7, 10, 12, 14 and 17 of the same export, shown over white as they print (mirrored, since it was
+exported for a white-ink printer; slice labels were off).*
 
 | Output | What |
 |---|---|
