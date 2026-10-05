@@ -59,6 +59,8 @@ With **Show Stacking** on, the block shows:
 
 ![The bee block face-on and oblique on a light base, and grazing and edge-on with a backlight](docs/images/optical.jpg)
 
+*0.2 mm film (143 sheets), Ink Density 0.3, Brightness 4.6, Fine quality.*
+
 Pick the **Material** first. Each preset sets the refractive indices, haze, side finish (polished) and ink scatter:
 
 | Preset | Film n | Glue n | Interface haze | Ink scatter |
@@ -102,11 +104,11 @@ The splat and the slice overlay are hidden while it shows. **Lighting** picks th
 | **Edge-Lit, Black** | light strips against the side faces, black backdrop | only scattering ink lights up |
 | **Scene Lighting** | none | your own lights and world |
 
-![The 4.13-million-splat bee block face-on under each lighting setup, at the default Brightness of 3](docs/images/lighting.png)
+![The 4.13-million-splat bee block face-on under each lighting setup](docs/images/lighting.png)
 
-*Face-on, looking down through the top of the block. Light Base is the setup made for this view. Backlight is
-meant for side views, so from above it only lights the block indirectly. Without white ink, front and edge
-light on a black backdrop stay dim.*
+*Face-on (orthographic, looking down through the top), Fast quality: 1 mm film (32 sheets), Ink Density 0.3,
+Brightness 4.6. Light Base shows pure transmission, so the dense body still stacks up dark; the other setups
+add light scattered by the pigment.*
 
 Every light is a glowing panel, so its brightness doesn't depend on how far the block box is scaled.
 Panels that stand in for lamps are hidden from the camera. Optics mode uses its own world (background),
