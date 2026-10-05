@@ -221,7 +221,7 @@ class GSSlicerSettings(bpy.types.PropertyGroup):
                                       update=lambda self, ctx: _brightness_changed(ctx),
                                       description="Multiplier on every light of the display setup")
     optical_lighting: EnumProperty(name="Lighting", default='LIGHT_BASE', update=_lighting_changed, items=[
-        ('LIGHT_BASE', "Light Base", "Bright light pad under the block, dark surroundings: the classic display"),
+        ('LIGHT_BASE', "Light Base", "Bright light pad under the block, dim grey surroundings: the classic display"),
         ('BACKLIGHT', "Backlight", "Bright panel behind the block, for front and side views"),
         ('FRONT_WHITE', "Front-Lit, White", "Soft light from the front, white backdrop (no light through the block)"),
         ('FRONT_BLACK', "Front-Lit, Black", "Soft light from the front, black backdrop: the hardest case without white ink"),

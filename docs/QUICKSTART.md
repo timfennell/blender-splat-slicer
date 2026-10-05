@@ -5,7 +5,7 @@ session with the 4.13-million-splat *Bee Extra Extra Large* scan in Blender 5.3.
 does in depth, see the [README](../README.md).
 
 **Test data:** the same bee scan is attached to the
-[latest release](https://github.com/timfennell/blender-splat-slicer/releases/latest) as
+[test-data release](https://github.com/timfennell/blender-splat-slicer/releases/tag/test-data) as
 `bee_extra_extra_large.zip` (342 MB; unzips to `scene.ply`, 974 MB). *Bee Extra Extra Large (4.13 Million
 Splats)* by [Tim Fennell](https://superspl.at/user/timfennell)
 ([view it on SuperSplat](https://superspl.at/scene/de6f7e2b)), licensed

@@ -4,14 +4,14 @@ Plan a clear laminated block around a Gaussian splat and slice it into printable
 Each layer is printed on a clear sheet (e.g. 0.2 mm PET), the sheets are glued (LOCA / UV resin)
 and stacked on a registration jig, and the block is trimmed and polished.
 
-Sidebar: **3D Viewport > N > Splat Slicer**.
+Sidebar: **3D Viewport > N > Splat Slicer**. Uses Blender 5.3's native splat import
+(`File > Import > PLY / SPZ`).
 
 **New here? Start with the [Quick start guide](docs/QUICKSTART.md)**: a step-by-step walk-through with
 screenshots, using a test scan you can download from the
-[latest release](https://github.com/timfennell/blender-splat-slicer/releases/latest). Uses Blender 5.3's native splat import
-(`File > Import > PLY / SPZ`).
+[test-data release](https://github.com/timfennell/blender-splat-slicer/releases/tag/test-data).
 
-![The Splat Slicer panel with a block fitted around a bee scan](docs/images/overview.jpg)
+![The Splat Slicer panel with a block fitted around the 4.13-million-splat bee scan](docs/images/overview.jpg)
 
 ## Workflow
 
@@ -57,7 +57,7 @@ With **Show Stacking** on, the block shows:
 
 ## Optical preview (Cycles)
 
-![The same block rendered face-on, oblique, grazing and edge-on](docs/images/optical.jpg)
+![The bee block face-on and oblique on a light base, and grazing and edge-on with a backlight](docs/images/optical.jpg)
 
 Pick the **Material** first. Each preset sets the refractive indices, haze, side finish (polished) and ink scatter:
 
@@ -95,14 +95,14 @@ The splat and the slice overlay are hidden while it shows. **Lighting** picks th
 
 | Lighting | Setup | What it tells you |
 |---|---|---|
-| **Light Base** (default) | bright pad under the block, dark surroundings | the classic display: full colour through the top |
+| **Light Base** (default) | bright pad under the block, dim grey surroundings | the classic display: full colour through the top |
 | **Backlight** | bright panel behind the block | front and side views, lit through |
 | **Front-Lit, White** | soft front light, white backdrop | room light on a white shelf: the backdrop bounces light back through |
 | **Front-Lit, Black** | soft front light, black backdrop | the hardest case without white ink: dim and murky |
 | **Edge-Lit, Black** | light strips against the side faces, black backdrop | only scattering ink lights up |
 | **Scene Lighting** | none | your own lights and world |
 
-![The bee block under each lighting setup](docs/images/lighting.png)
+![The 4.13-million-splat bee block under each lighting setup, at the default Brightness of 2](docs/images/lighting.png)
 
 Every light is a glowing panel, so its brightness doesn't depend on how far the block box is scaled.
 Panels that stand in for lamps are hidden from the camera. Optics mode uses its own world (background),
@@ -343,8 +343,9 @@ blender --command extension install-file -r user_default -e dist/gs_slicer-0.1.0
 
 ## Test data and license
 
-The *Bee Extra Extra Large (4.13 Million Splats)* scan used in the quick start is attached to each release as
-`bee_extra_extra_large.zip`. It's by [Tim Fennell](https://superspl.at/user/timfennell)
+The *Bee Extra Extra Large (4.13 Million Splats)* scan used in the quick start and in the images here is
+attached to the [test-data release](https://github.com/timfennell/blender-splat-slicer/releases/tag/test-data) as
+`bee_extra_extra_large.zip` (342 MB; unzips to `scene.ply`, 974 MB). Rotate it 180° on X after import. It's by [Tim Fennell](https://superspl.at/user/timfennell)
 ([view it on SuperSplat](https://superspl.at/scene/de6f7e2b)) and licensed
 [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/): credit the author; commercial use is allowed.
 
