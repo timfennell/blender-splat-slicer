@@ -137,10 +137,12 @@ class GSSlicerSettings(bpy.types.PropertyGroup):
                          update=_size_changed, description="Finished block width in mm")
     height: FloatProperty(name="Height (Z)", default=50.0, min=0.1, soft_max=500.0, precision=2,
                           update=_size_changed, description="Finished block height (stack) in mm")
-    fit_height: BoolProperty(name="Fit Height to Model", default=True,
-                             description="On Create / Refit, scale the model to fill Length x Width and set Height "
-                                         "to the model's height plus padding, in whole layers. Off: keep the "
-                                         "height you typed and fit the model inside all three")
+    fit_mode: EnumProperty(name="Fit", default='ALL', items=[
+        ('ALL', "Width && Height to Model",
+         "Length sets the print size; Width and Height follow the model's proportions plus padding"),
+        ('HEIGHT', "Height to Model", "Keep Length and Width; Height follows the model plus padding"),
+        ('NONE', "Keep All Sizes", "Keep Length, Width and Height; the model is scaled to fit inside them"),
+    ], description="Which block sizes Create / Refit Block takes from the model")
     fit_padding: FloatProperty(name="Padding", default=5.0, min=0.0, max=45.0, subtype='PERCENTAGE',
                                description="Clear space left around the splat when fitting the block")
 

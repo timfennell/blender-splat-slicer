@@ -80,13 +80,16 @@ def world_points(splat, sample=200_000):
     return pos @ mw[:3, :3].T + mw[:3, 3]
 
 
-def fit_box(box, splat, size_mm, padding=0.05, trim=0.5, fit_height=False, pitch=None):
-    """Centre the box on the splat and scale it uniformly so the splat fits inside.
+def fit_box(box, splat, size_mm, padding=0.05, trim=0.5, mode='ALL', pitch=None):
+    """Centre the box on the splat and scale it uniformly so the splat fits.
 
-    Works in the box's current orientation; `trim` percent of points at each end are ignored
-    so a few floaters don't shrink the model. With `fit_height`, the scale comes from length and
-    width only and the height is derived from the model (plus padding), rounded up to whole
-    layers of `pitch`. Returns (scale, height_mm).
+    Works in the box's current orientation; `trim` percent of points at each end are ignored so a few
+    floaters don't shrink the model. `mode` says which block sizes come from the model:
+      'ALL'    Length sets the print scale; Width and Height follow the model's proportions
+      'HEIGHT' Length and Width are kept; Height follows the model
+      'NONE'   all three are kept; the model is scaled to fit inside them
+    Derived sizes include the padding; Height is rounded up to whole layers of `pitch`.
+    Returns (scale, (length, width, height) in mm).
     """
     pts = world_points(splat)
     rot = box.matrix_world.to_3x3().normalized()
@@ -94,20 +97,22 @@ def fit_box(box, splat, size_mm, padding=0.05, trim=0.5, fit_height=False, pitch
     local = pts @ R                                  # rows: point coords along the box axes
     lo = np.percentile(local, trim, axis=0)
     hi = np.percentile(local, 100 - trim, axis=0)
-    ext = hi - lo
+    ext = np.maximum(hi - lo, 1e-9)
     keep = 1.0 - 2.0 * padding
-    size_m = np.array(size_mm) * 0.001 * keep
-    axes = slice(0, 2) if fit_height else slice(0, 3)
-    s = float(np.max(ext[axes] / size_m[axes]))
-    height = size_mm[2]
-    if fit_height:
-        height = ext[2] / s * 1000.0 / keep          # model height in print mm, plus padding
-        if pitch:
-            height = math.ceil(height / pitch - 1e-6) * pitch
+    size = list(size_mm)
+    fixed = {'ALL': [0], 'HEIGHT': [0, 1]}.get(mode, [0, 1, 2])
+    s = max(ext[i] / (size[i] * 0.001 * keep) for i in fixed)
+    for i in range(3):
+        if i not in fixed:
+            size[i] = ext[i] / s * 1000.0 / keep     # model extent in print mm, plus padding
+    if 2 not in fixed and pitch:
+        size[2] = math.ceil(size[2] / pitch - 1e-6) * pitch
+    if 1 not in fixed:
+        size[1] = math.ceil(size[1] * 100.0 - 1e-6) / 100.0
     centre = R @ ((lo + hi) / 2)
     box.matrix_world = (Matrix.Translation(centre.tolist()) @ rot.to_4x4()
                         @ Matrix.Diagonal((s, s, s, 1.0)))
-    return s, height
+    return s, tuple(size)
 
 
 def to_block_matrix(box, splat, size_mm):

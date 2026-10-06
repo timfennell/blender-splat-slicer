@@ -21,14 +21,16 @@ def _active_splat(context):
 
 
 def _fit(p, splat):
-    """Fit the block to the splat (and, if asked, its height to the model). Returns a report line."""
-    s, height = boxmod.fit_box(p.box, splat, p.block_size, p.fit_padding / 100.0,
-                               fit_height=p.fit_height, pitch=p.pitch)
-    msg = f"1 splat unit = {1000.0 / s:.2f} mm"
-    if p.fit_height:
-        p.height = height                       # rebuilds the box mesh at the new height
-        msg += f"; height {height:.2f} mm = {p.layer_plan()[0]} layers"
-    return msg
+    """Fit the block to the splat; sizes the Fit setting derives come from the model. Returns a report line."""
+    s, (length, width, height) = boxmod.fit_box(p.box, splat, p.block_size, p.fit_padding / 100.0,
+                                                mode=p.fit_mode, pitch=p.pitch)
+    # Setting the sizes rebuilds the box mesh at the new size.
+    if p.fit_mode == 'ALL':
+        p.width = width
+    if p.fit_mode in ('ALL', 'HEIGHT'):
+        p.height = height
+    return (f"Block {p.length:.2f} x {p.width:.2f} x {p.height:.2f} mm, {p.layer_plan()[0]} layers; "
+            f"1 splat unit = {1000.0 / s:.2f} mm")
 
 
 class GSSLICER_OT_create_block(bpy.types.Operator):
@@ -61,7 +63,7 @@ class GSSLICER_OT_fit_block(bpy.types.Operator):
     bl_idname = "gs_slicer.fit_block"
     bl_label = "Fit to Splat"
     bl_description = ("Centre the block on the splat and scale it uniformly so the splat fits, keeping the "
-                      "block's rotation. With Fit Height to Model, the height is set from the model too")
+                      "block's rotation. The Fit setting decides which block sizes are taken from the model")
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod

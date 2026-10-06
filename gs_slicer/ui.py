@@ -50,7 +50,7 @@ class GSSLICER_PT_block(_Base, bpy.types.Panel):
         col.prop(p, "length")
         col.prop(p, "width")
         col.prop(p, "height")
-        self.layout.prop(p, "fit_height")
+        self.layout.prop(p, "fit_mode")
         self.layout.prop(p, "fit_padding")
         self.layout.prop(p, "show_overlay")
         if p.box is not None:
