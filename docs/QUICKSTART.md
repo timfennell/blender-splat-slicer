@@ -30,13 +30,16 @@ In the same sidebar, click the **Splat Slicer** tab.
 
 ## 3. Set the block size and create the block
 
-Under **Block Size (mm)**, enter the finished block's **Length** and **Width** (here 50 × 50 mm). Leave
-**Fit Height to Model** on: the height is worked out from the model. **Padding** is the clear border left
-around the model (8% here). Then, with the splat selected, click **Create Block**.
+Under **Block Size (mm)**, enter the finished block's **Length** (here 50 mm). Leave **Fit** on
+*Width & Height to Model*: the other two sizes are worked out from the model. **Margin (mm)** is the clear space
+left between the model and every side of the block. Then, with the splat selected, click **Create Block**.
 
-The wireframe box is the block. The model is scaled to fill Length × Width, and the height becomes the model's
-height plus padding, rounded to whole layers: here **32.89 mm**. The panel shows the print scale
-(*1 scene unit = 19.40 mm*).
+The wireframe box is the block. The model is scaled so its length plus the margins fills Length, and Width and
+Height follow the model's proportions, with Height rounded up to whole layers. The panel shows the print scale.
+
+*(The screenshots in this guide were taken with an earlier version that used a 50 × 50 mm footprint and a
+percentage padding, so your block will come out a little different: with Length 50 and a 2 mm margin, this bee
+fits a 50 × 34.69 × 35.88 mm block, 156 sheets.)*
 
 ![The block fitted around the bee, with the stacking overlay](quickstart/03_block.jpg)
 

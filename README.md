@@ -17,10 +17,16 @@ screenshots, using a test scan you can download from the
 
 1. Import the splat and select it.
 2. **Block Size (mm)**: set the finished block's Length × Width × Height.
-3. **Create Block**: adds a wireframe box at that size and fits it around the splat. With
-   **Fit Height to Model** (on by default), the model is scaled to fill Length × Width and the Height is set
-   to the model's height plus padding, in whole layers, so no sheets are spent on empty space. Turn it off to
-   keep your own height. **Refit Block** repeats the fit. Move, rotate or scale the box to frame the model. Whatever is inside the box gets printed, and the box's
+3. **Create Block**: adds a wireframe box and fits it around the splat, leaving **Margin (mm)** of clear space
+   on all six sides. **Fit** decides which sizes come from the model:
+   - **Width & Height to Model** (default): Length sets the print size; Width and Height follow the model's
+     proportions. Height is rounded up to whole layers, so no sheets are spent on empty space.
+   - **Height to Model**: keeps Length and Width; Height follows the model.
+   - **Keep All Sizes**: the model is scaled to fit inside the sizes you typed.
+
+   The fit measures the model's visible splats (opacity ≥ 0.1), so invisible haze far from the model doesn't
+   inflate the box. **Refit Block** repeats the fit. Move, rotate or scale the box to frame the model by hand.
+   Whatever is inside the box gets printed, and the box's
    axes are the block's axes. The panel shows the print scale ("1 scene unit = 11.46 mm").
    Uniform scale only, or the model gets stretched (the panel warns).
 4. **Layers**: film thickness + bond line (cured glue) = layer pitch. Better: laminate a test

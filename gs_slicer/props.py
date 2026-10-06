@@ -143,8 +143,8 @@ class GSSlicerSettings(bpy.types.PropertyGroup):
         ('HEIGHT', "Height to Model", "Keep Length and Width; Height follows the model plus padding"),
         ('NONE', "Keep All Sizes", "Keep Length, Width and Height; the model is scaled to fit inside them"),
     ], description="Which block sizes Create / Refit Block takes from the model")
-    fit_padding: FloatProperty(name="Padding", default=5.0, min=0.0, max=45.0, subtype='PERCENTAGE',
-                               description="Clear space left around the splat when fitting the block")
+    fit_margin: FloatProperty(name="Margin (mm)", default=2.0, min=0.0, soft_max=20.0, precision=2,
+                              description="Clear space left between the model and every side of the block when fitting")
 
     show_overlay: BoolProperty(name="Show Stacking", default=True, update=lambda self, ctx: _redraw(ctx),
                                description="Draw layer ticks, the stacking arrow, the front edge and the "

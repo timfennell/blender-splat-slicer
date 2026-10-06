@@ -22,7 +22,7 @@ def _active_splat(context):
 
 def _fit(p, splat):
     """Fit the block to the splat; sizes the Fit setting derives come from the model. Returns a report line."""
-    s, (length, width, height) = boxmod.fit_box(p.box, splat, p.block_size, p.fit_padding / 100.0,
+    s, (length, width, height) = boxmod.fit_box(p.box, splat, p.block_size, p.fit_margin,
                                                 mode=p.fit_mode, pitch=p.pitch)
     # Setting the sizes rebuilds the box mesh at the new size.
     if p.fit_mode == 'ALL':

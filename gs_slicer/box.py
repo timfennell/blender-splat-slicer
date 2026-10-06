@@ -68,43 +68,54 @@ def create_box(context, size_mm, name="Slice Block"):
     return obj
 
 
-def world_points(splat, sample=200_000):
+def world_points(splat, sample=400_000, min_opacity=0.0):
+    """World positions of (a sample of) the splat's points, optionally only those at least `min_opacity`."""
     pc = splat.data
     n = len(pc.points)
     pos = np.empty(n * 3, np.float32)
     pc.attributes["position"].data.foreach_get("vector", pos)
     pos = pos.reshape(n, 3)
-    if n > sample:
-        pos = pos[np.random.default_rng(0).choice(n, sample, replace=False)]
+    if min_opacity > 0.0:
+        base = _attr(pc, "radiance:base", 4, "vector")
+        if base is not None:
+            keep = base[:, 3] >= min_opacity
+            hidden = _attr(pc, HIDDEN_ATTR, 1, "value")
+            if hidden is not None:
+                keep &= ~hidden
+            if keep.any():
+                pos = pos[keep]
+    if len(pos) > sample:
+        pos = pos[np.random.default_rng(0).choice(len(pos), sample, replace=False)]
     mw = np.array(splat.matrix_world)
     return pos @ mw[:3, :3].T + mw[:3, 3]
 
 
-def fit_box(box, splat, size_mm, padding=0.05, trim=0.5, mode='ALL', pitch=None):
-    """Centre the box on the splat and scale it uniformly so the splat fits.
+def fit_box(box, splat, size_mm, margin_mm=2.0, mode='ALL', pitch=None, trim=0.01, min_opacity=0.1):
+    """Centre the box on the splat and scale it uniformly so the splat fits with `margin_mm` on every side.
 
-    Works in the box's current orientation; `trim` percent of points at each end are ignored so a few
-    floaters don't shrink the model. `mode` says which block sizes come from the model:
-      'ALL'    Length sets the print scale; Width and Height follow the model's proportions
+    The model's extent is measured from its visible splats (opacity >= `min_opacity`, not erased),
+    ignoring `trim` percent at each end, so invisible haze and a few stray floaters don't count.
+    `mode` says which block sizes come from the model:
+      'ALL'    Length sets the print scale; Width and Height follow the model
       'HEIGHT' Length and Width are kept; Height follows the model
       'NONE'   all three are kept; the model is scaled to fit inside them
-    Derived sizes include the padding; Height is rounded up to whole layers of `pitch`.
-    Returns (scale, (length, width, height) in mm).
+    Derived sizes are the model's extent plus the margin on both sides; Height is rounded up to whole
+    layers of `pitch` (the extra is split top and bottom). Returns (scale, (length, width, height) mm).
     """
-    pts = world_points(splat)
+    pts = world_points(splat, min_opacity=min_opacity)
     rot = box.matrix_world.to_3x3().normalized()
     R = np.array(rot)
     local = pts @ R                                  # rows: point coords along the box axes
     lo = np.percentile(local, trim, axis=0)
     hi = np.percentile(local, 100 - trim, axis=0)
     ext = np.maximum(hi - lo, 1e-9)
-    keep = 1.0 - 2.0 * padding
     size = list(size_mm)
     fixed = {'ALL': [0], 'HEIGHT': [0, 1]}.get(mode, [0, 1, 2])
-    s = max(ext[i] / (size[i] * 0.001 * keep) for i in fixed)
+    inner = [max(size[i] - 2.0 * margin_mm, 0.05 * size[i]) for i in range(3)]
+    s = max(ext[i] / (inner[i] * 0.001) for i in fixed)
     for i in range(3):
         if i not in fixed:
-            size[i] = ext[i] / s * 1000.0 / keep     # model extent in print mm, plus padding
+            size[i] = ext[i] / s * 1000.0 + 2.0 * margin_mm
     if 2 not in fixed and pitch:
         size[2] = math.ceil(size[2] / pitch - 1e-6) * pitch
     if 1 not in fixed:

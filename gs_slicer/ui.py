@@ -51,7 +51,7 @@ class GSSLICER_PT_block(_Base, bpy.types.Panel):
         col.prop(p, "width")
         col.prop(p, "height")
         self.layout.prop(p, "fit_mode")
-        self.layout.prop(p, "fit_padding")
+        self.layout.prop(p, "fit_margin")
         self.layout.prop(p, "show_overlay")
         if p.box is not None:
             s = sum(p.box.matrix_world.to_scale()) / 3.0
