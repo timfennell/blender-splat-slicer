@@ -57,9 +57,9 @@ With **Show Stacking** on, the block shows:
 
 ## Optical preview (Cycles)
 
-![The bee block face-on and oblique on a light base, and grazing and edge-on with a backlight](docs/images/optical.jpg)
+![The bee block face-on, oblique, grazing and edge-on](docs/images/optical.jpg)
 
-*0.2 mm film (143 sheets), Ink Density 0.3, Brightness 4.6, Fine quality.*
+*Front-Lit, White; 0.2 mm film (143 sheets), Ink Density 0.3, Brightness 4.6, Fast quality.*
 
 Pick the **Material** first. Each preset sets the refractive indices, haze, side finish (polished) and ink scatter:
 
@@ -73,7 +73,7 @@ Changing any value by hand switches the menu to *Custom*.
 
 ![The same block 10 degrees above the layers: PET film on the left, cast acrylic on the right](docs/images/pet_vs_acrylic.jpg)
 
-*10° above the layers, Fine quality. Both stay readable. PET (left) is a little softer, with fine striping
+*10° above the layers, Front-Lit White, Ink Density 0.3, Fine quality. Both stay readable. PET (left) is a little softer, with fine striping
 from its index step and coating haze. Cast acrylic (right), with indices matched to the glue, is crisper.*
 
 **Build Optical Block** builds the laminated block as Cycles glass:
