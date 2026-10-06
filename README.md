@@ -91,7 +91,10 @@ from its index step and coating haze. Cast acrylic (right), with indices matched
 - **Fine**: adds every glue interface (and their **Interface Haze**), at full resolution and 64 samples,
   for a final look.
 
-Switching between them is instant; no rebuild needed.
+Switching between them is instant; no rebuild needed. Fine is slightly darker than Fast with PET (about 9%
+here): that's the real reflection at PET's index step, repeated at every glue line. With cast acrylic the
+two match. *(Before 0.2.7, Fine came out about 20% darker than it should have: Blender 5.3's GGX glass loses
+a little light at every crossing, which adds up over a stack. The glass now uses the Beckmann distribution.)*
 
 The splat and the slice overlay are hidden while it shows. **Lighting** picks the display setup:
 

@@ -42,7 +42,11 @@ def _glass(name, ior, roughness):
     nt.nodes.clear()
     out = nt.nodes.new('ShaderNodeOutputMaterial')
     g = nt.nodes.new('ShaderNodeBsdfGlass')
-    g.distribution = 'MULTI_GGX'
+    # Beckmann, not GGX: in Blender 5.3 GGX glass loses ~0.1% of the light at every crossing even at
+    # roughness 0. Harmless for one pane, but over the ~250 crossings down and back up through a
+    # 60-sheet stack it darkened Fine quality by ~20% (measured; acrylic, whose interfaces reflect
+    # almost nothing, came out 17% darker than Fast). Beckmann matches Fast within noise.
+    g.distribution = 'BECKMANN'
     g.inputs['IOR'].default_value = ior
     g.inputs['Roughness'].default_value = roughness
     nt.links.new(g.outputs[0], out.inputs['Surface'])

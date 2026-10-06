@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "gs_slicer"
-version = "0.2.6"
+version = "0.2.7"
 name = "Splat Slicer"
 tagline = "Slice Gaussian splats into printable film layers"
 maintainer = "Tim Fennell"
